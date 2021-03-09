@@ -56,5 +56,4 @@ names(tidy)<-gsub("^f", "Frequency", names(tidy))
 
 #create independent tidy data set with the average of each variable for each activity and each subject
 tidySummary <- tidy %>%  group_by(subj, activity) %>%  summarise_all(mean)
-write.table(tidySummary, "Summary.txt")
-
+write.table(tidySummary, "Summary.txt", row.name=FALSE)
