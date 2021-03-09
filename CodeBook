@@ -1,0 +1,58 @@
+Download the dataset
+  Download Dataset from: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+Import data into R
+  
+List of all features
+- Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+  feat <- features.txt : 561 rows, 2 columns
+
+Links the class labels with their activity name
+Activities the participants were performing when features X were recorded
+  act <- activity_labels.txt : 6 rows, 2 columns
+
+Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30
+  subject_test <- subject_test.txt 2947 : rows, 1 column
+  
+Test set of data
+  X_test <- X_test.txt : 2947 rows, 561 columns
+  y_test <- y_test.txt : 2947 rows, 1 columns
+
+Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30
+  subject_train <- subject_train.txt : 7352 rows, 1 column
+
+Training set of data
+  X_train <- X_train.txt : 7352 rows, 561 columns
+  y_train <- y_train.txt : 7352 rows, 1 columns
+
+
+Merge training and test sets using rbind
+  X_comb : 10299 rows, 561 columns
+  y_comb : 10299 rows, 1 column
+  subject_comb : 10299 rows, 1 column
+
+Combining into one table using cbind
+  mergedData : 10299 rows, 563 column
+
+Extracts only the measurements on the mean and standard deviation for each measurement:
+Subset of mergedData using only subj, cd, and feat which contain the words "mean" or "std"
+  tidy : 10299 rows, 88 columns 
+  
+Uses descriptive activity names to name the activities in the data set
+  tidy$cd <- act[tidy$cd, 2] 
+
+Appropriately labels the data set with descriptive variable names
+  cd column in tidy renamed into activity
+  Acc in column names' replaced by Accelerometer
+  Gyro in column names' replaced by Gyroscope
+  BodyBody in column names' replaced by Body
+  Features starting with "f" in column names' replaced by Frequency
+  Features starting with "t" in column names' replaced by Time
+
+From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+Take mean of each variable and activity and put into new table
+  tidySummary : 180 rows, 88 columns 
+  
+Export into Summary.txt
